@@ -89,10 +89,10 @@ def main():
 
     if args.d == 0:
         ansi.clear_screen()
-        results = [run_daypart(args.y, day, part, False, False) for day in range(1, 26) for part in part_nums]
+        results = [run_daypart(args.y, day, part, False) for day in range(1, 16 + 1) for part in part_nums]
         passing = sum(r[0] for r in results)
         total_time = sum(r[1] for r in results)
-        total_cnt = 25 * len(part_nums)
+        total_cnt = 16 * len(part_nums)
         print(f'[{total_time:>7.3f}] Passing:', passing, 'of', total_cnt)
     else:
         for part_num in part_nums:

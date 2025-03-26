@@ -29,4 +29,3 @@ if __name__ == '__main__':
     print('Part 1:', part1(True))
     print('Part 2:', part2(True))
     print('Part 3:', part3(True))
-
