@@ -11,7 +11,7 @@ def part1(output=False):
     grid = parse()
     cols = [sum(l) for l in grid]
     rows = [sum(l[i] for l in grid) for i in range(len(grid[0]))]
-    return min(cols, rows)
+    return min(cols + rows)
 
 def part2(output=False):
     grid = parse()
