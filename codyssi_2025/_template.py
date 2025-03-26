@@ -32,7 +32,7 @@ def part1(output=False):
     lines = parse()
     return ''
 
-def partn(output=False):
+def part2(output=False):
     lines = parse()
     return ''
 
