@@ -10,7 +10,7 @@ import mrm.ansi_term as ansi
 COLOR_PASS_STR = ansi.green('PASS')
 COLOR_FAIL_STR = ansi.red('FAIL')
 
-def run_daypart(year, day_num, part_num, output):
+def run_daypart(year, day_num, part_num, output, save):
     day_str = f'{day_num:02d}'
     day_module_name = f'codyssi_{year}.codyssi_{year}_{day_str}'
 
@@ -37,6 +37,14 @@ def run_daypart(year, day_num, part_num, output):
             daypart_val = str(day_module.part2(output))
         else:
             daypart_val = str(day_module.part3(output))
+
+        if save:
+            if results is None:
+                result_module.results[day_num] = {part_num: daypart_val}
+                results = result_module.results[day_num]
+            else:
+                results[part_num] = daypart_val
+            result_module.results.save(True)
 
         t_after = time.process_time()
         exec_time = round(t_after - t_before, 3)
@@ -68,6 +76,7 @@ def main():
     ap.add_argument('-d', type = int, required = True, help = 'Day to run. 0 for all.')
     ap.add_argument('-p', type = int, choices = [1, 2, 3], help = 'Only runs specified part 1 or 2.')
     ap.add_argument('-o', action = 'store_true', help = 'Show optional output. Ignored for -d0.')
+    ap.add_argument('-v', action = 'store_true', help = 'Save to results.')
     args = ap.parse_args()
 
     if not args.y:
@@ -89,14 +98,14 @@ def main():
 
     if args.d == 0:
         ansi.clear_screen()
-        results = [run_daypart(args.y, day, part, False) for day in range(1, 16 + 1) for part in part_nums]
+        results = [run_daypart(args.y, day, part, False, args.v) for day in range(1, 16 + 1) for part in part_nums]
         passing = sum(r[0] for r in results)
         total_time = sum(r[1] for r in results)
         total_cnt = 16 * len(part_nums)
         print(f'[{total_time:>7.3f}] Passing:', passing, 'of', total_cnt)
     else:
         for part_num in part_nums:
-            run_daypart(args.y, args.d, part_num, args.o)
+            run_daypart(args.y, args.d, part_num, args.o, args.v)
 
 if __name__ == '__main__':
     main()
