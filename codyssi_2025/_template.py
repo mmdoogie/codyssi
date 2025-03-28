@@ -1,10 +1,13 @@
+from dataclasses import dataclass
 from collections import Counter, defaultdict, deque, namedtuple
+from enum import Enum
 from functools import cache, cmp_to_key, partial, reduce
 from itertools import combinations, cycle, groupby, pairwise, permutations, product
 import math
 import operator
 import random
 import re
+import string
 
 import mrm.ansi_term as ansi
 from mrm.bitvector import Bitvector
