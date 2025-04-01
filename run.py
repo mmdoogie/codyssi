@@ -55,7 +55,11 @@ def run_daypart(year, day_num, part_num, output, save):
                 daypart_expect = str(results[part_num])
                 passing = daypart_val == daypart_expect
                 pf_str = COLOR_PASS_STR if passing else COLOR_FAIL_STR
-                print(f'{daypart_val:<40}', f'{daypart_expect:<40}', pf_str)
+                print(f'{daypart_val if len(daypart_val) <= 40 else daypart_val[:37] + "...":<40}',
+                      f'{daypart_expect if len(daypart_expect) <= 40 else daypart_expect[:37] + "...":<40}', pf_str)
+                if output and len(daypart_val) > 40:
+                    print(f'                  Full Result: {daypart_val}')
+                    print(f'                  Full Expect: {daypart_expect}')
             else:
                 passing = True
                 print(f'{daypart_val:<40}', f'expecting: {daypart_expect:<40}')
