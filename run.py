@@ -94,18 +94,18 @@ def main():
         print('Year must be in', included_years)
         sys.exit(1)
 
-    if args.d < 0 or args.d > 17:
-        print('Day must be between 1 and 17 inclusive.  Use 0 for all')
+    if args.d < 0 or args.d > 18:
+        print('Day must be between 1 and 18 inclusive.  Use 0 for all')
         sys.exit(1)
 
     part_nums = set([args.p]) if args.p else set([1, 2, 3])
 
     if args.d == 0:
         ansi.clear_screen()
-        results = [run_daypart(args.y, day, part, False, args.v) for day in range(1, 17 + 1) for part in part_nums]
+        results = [run_daypart(args.y, day, part, False, args.v) for day in range(1, 18 + 1) for part in part_nums]
         passing = sum(r[0] for r in results)
         total_time = sum(r[1] for r in results)
-        total_cnt = 17 * len(part_nums)
+        total_cnt = 18 * len(part_nums)
         print(f'[{total_time:>7.3f}] Passing:', passing, 'of', total_cnt)
     else:
         for part_num in part_nums:
